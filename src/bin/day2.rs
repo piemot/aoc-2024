@@ -16,10 +16,7 @@ enum ReportStatus {
 
 impl ReportStatus {
     pub fn is_valid(&self) -> bool {
-        match self {
-            ReportStatus::Valid => true,
-            _ => false,
-        }
+        matches!(self, ReportStatus::Valid)
     }
 }
 
