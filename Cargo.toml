@@ -1,0 +1,17 @@
+[package]
+name = "aoc-2024"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nom = "7.1.3"
+rand = "0.8.5"
+regex = "1.11.1"
+# Day 1 (micro-optimisation)
+rustc-hash = "2.1.0"
+
+# Reduce size of release binaries... just for fun
+[profile.release]
+lto = "thin"        # Enable link-time optimization
+panic = 'abort'     # Abort on panic
+strip = true        # Strip symbols from binary*
