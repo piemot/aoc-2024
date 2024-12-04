@@ -6,7 +6,7 @@ My solutions for Advent of Code, 2024
 |---------:|:----:|:-----:|----------|
 | Day 1    | ⭐   |  ⭐⭐  | Rust     |
 | Day 2    | ⭐   |  ⭐⭐  | Rust     |
-| Day 3    |      |       |          |
+| Day 3    | ⭐   |  ⭐⭐  | Rust     |
 | Day 4    |      |       |          |
 | Day 5    |      |       |          |
 | Day 6    |      |       |          |
