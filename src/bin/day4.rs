@@ -172,26 +172,37 @@ fn part1(input: &'static str) -> usize {
     for index in starting_chars {
         let pt = (index % tiles.width(), index / tiles.width());
         for t in tiles.translations(pt) {
-            let next_tile = add_points(pt, *t);
-            if let Some(tile) = tiles.get_isize(next_tile) {
-                if tile == &Tile::M {
-                    let next_tile = add_points_i(next_tile, *t);
-                    if let Some(tile) = tiles.get_isize(next_tile) {
-                        if tile == &Tile::A {
-                            let next_tile = add_points_i(next_tile, *t);
-                            if let Some(tile) = tiles.get_isize(next_tile) {
-                                if tile == &Tile::S {
-                                    matches += 1;
-                                }
-                            }
-                        }
-                    }
-                }
+            if find(&tiles, *t, pt, [Tile::M, Tile::A, Tile::S].iter()) {
+                matches += 1;
             }
         }
     }
 
     matches
+}
+
+/// Recursively check tiles in the given direction.
+fn find<'a>(
+    grid: &Grid<Tile>,
+    translation: (isize, isize),
+    pt: Point,
+    mut tofind: impl Iterator<Item = &'a Tile>,
+) -> bool {
+    let Some(target_tile) = tofind.next() else {
+        return true;
+    };
+    let next_tile = add_points(pt, translation);
+    if let Some(tile) = grid.get_isize(next_tile) {
+        if tile == target_tile {
+            return find(
+                grid,
+                translation,
+                (next_tile.0 as usize, next_tile.1 as usize),
+                tofind,
+            );
+        }
+    }
+    return false;
 }
 
 fn part2(input: &'static str) -> usize {
@@ -202,6 +213,10 @@ fn part2(input: &'static str) -> usize {
         tiles.extend(line.chars().map(|c| c.into()));
     }
 
+    let compare_row = |row: [&Tile; 3]| {
+        row == [&Tile::M, &Tile::A, &Tile::S] || row == [&Tile::S, &Tile::A, &Tile::M]
+    };
+
     tiles
         .range_offset(0, 0, 2, 2)
         .iter()
@@ -211,31 +226,18 @@ fn part2(input: &'static str) -> usize {
                 tiles.get((top_pt.0 + 1, top_pt.1 + 1)).unwrap(),
                 tiles.get((top_pt.0 + 2, top_pt.1 + 2)).unwrap(),
             ];
-            if row_one != [&Tile::M, &Tile::A, &Tile::S]
-                && row_one != [&Tile::S, &Tile::A, &Tile::M]
-            {
-                return false;
-            }
             let row_two = [
                 tiles.get((top_pt.0 + 2, top_pt.1)).unwrap(),
                 tiles.get((top_pt.0 + 1, top_pt.1 + 1)).unwrap(),
                 tiles.get((top_pt.0, top_pt.1 + 2)).unwrap(),
             ];
-            if row_two != [&Tile::M, &Tile::A, &Tile::S]
-                && row_two != [&Tile::S, &Tile::A, &Tile::M]
-            {
-                return false;
-            }
-            true
+            compare_row(row_one) && compare_row(row_two)
         })
         .count()
 }
 
 fn add_points(pt: (usize, usize), t: (isize, isize)) -> (isize, isize) {
     let pt = (pt.0 as isize, pt.1 as isize);
-    (pt.0 + t.0, pt.1 + t.1)
-}
-fn add_points_i(pt: (isize, isize), t: (isize, isize)) -> (isize, isize) {
     (pt.0 + t.0, pt.1 + t.1)
 }
 
