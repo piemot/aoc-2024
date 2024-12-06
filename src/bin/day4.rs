@@ -14,11 +14,11 @@ enum Tile {
 impl From<char> for Tile {
     fn from(value: char) -> Self {
         match value {
-            'X' => Tile::X,
-            'M' => Tile::M,
-            'A' => Tile::A,
-            'S' => Tile::S,
-            _ => Tile::Other,
+            'X' => Self::X,
+            'M' => Self::M,
+            'A' => Self::A,
+            'S' => Self::S,
+            _ => Self::Other,
         }
     }
 }
@@ -44,7 +44,7 @@ const ALL_TRANSLATIONS: [(isize, isize); 8] = [
 
 impl<T> Grid<T> {
     // Create a new grid of a given width.
-    pub fn new(width: usize) -> Self {
+    pub const fn new(width: usize) -> Self {
         Self {
             width,
             items: vec![],
@@ -158,7 +158,7 @@ fn part1(input: &'static str) -> usize {
     let width = lines.peek().unwrap().len();
     let mut tiles: Grid<Tile> = Grid::new(width);
     for line in lines {
-        tiles.extend(line.chars().map(|c| c.into()));
+        tiles.extend(line.chars().map(Into::into));
     }
 
     let mut matches = 0;
@@ -210,7 +210,7 @@ fn part2(input: &'static str) -> usize {
     let width = lines.peek().unwrap().len();
     let mut tiles: Grid<Tile> = Grid::new(width);
     for line in lines {
-        tiles.extend(line.chars().map(|c| c.into()));
+        tiles.extend(line.chars().map(Into::into));
     }
 
     let compare_row = |row: [&Tile; 3]| {

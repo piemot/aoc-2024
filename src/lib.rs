@@ -1,5 +1,6 @@
 // Based on https://www.reddit.com/r/adventofcode/comments/e5sa2d/comment/f9nea6y
 /// Creates a `main()` function for each day, which automatically loads the appropriate input from `dayN.txt`.
+///
 /// The first argument of each function must be `&str`, unless the function is prefixed with `byte`.
 /// If it is, `&[u8]` will be provided instead.
 ///

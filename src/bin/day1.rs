@@ -41,9 +41,9 @@ fn part2_topt(input: &'static str) -> u32 {
     let (list_a, list_b) = parse_input(input);
 
     let mut map = FxHashMap::default();
-    list_b.iter().for_each(|b| {
+    for b in list_b {
         *map.entry(b).or_insert(0) += 1;
-    });
+    }
 
     list_a.iter().map(|a| a * map.get(a).unwrap_or(&0)).sum()
 }

@@ -20,7 +20,7 @@ enum Direction {
 }
 
 impl Direction {
-    pub fn rotate(&self) -> Direction {
+    pub const fn rotate(self) -> Self {
         match self {
             Self::North => Self::East,
             Self::East => Self::South,
@@ -29,7 +29,7 @@ impl Direction {
         }
     }
 
-    pub fn translation(&self) -> (isize, isize) {
+    pub const fn translation(self) -> (isize, isize) {
         match self {
             Self::North => (0, -1),
             Self::East => (1, 0),
@@ -44,9 +44,9 @@ impl TryFrom<char> for Tile {
 
     fn try_from(value: char) -> Result<Self, Self::Error> {
         match value {
-            '^' => Ok(Tile::Guard),
-            '#' => Ok(Tile::Obstacle),
-            '.' => Ok(Tile::None),
+            '^' => Ok(Self::Guard),
+            '#' => Ok(Self::Obstacle),
+            '.' => Ok(Self::None),
             _ => Err(()),
         }
     }
@@ -59,7 +59,7 @@ struct Grid<T> {
 }
 
 impl<T> Grid<T> {
-    pub fn new(width: usize, data: Vec<T>) -> Self {
+    pub const fn new(width: usize, data: Vec<T>) -> Self {
         Self { width, data }
     }
 
@@ -77,9 +77,10 @@ impl<T> Grid<T> {
     }
 
     pub fn coord_to_index(&self, pos: (isize, isize)) -> usize {
-        if pos.0 < 0 || pos.1 < 0 {
-            panic!("Invalid values provided to coord_to_index");
-        }
+        assert!(
+            pos.0 >= 0 && pos.1 >= 0,
+            "Invalid values provided to coord_to_index"
+        );
         pos.1 as usize * self.width + pos.0 as usize
     }
 
@@ -186,7 +187,7 @@ fn part2(input: &'static str) -> i32 {
             if *grid.at((x as isize, y as isize)).unwrap() == Tile::None {
                 grid.set((x as isize, y as isize), Tile::Obstacle);
                 if escape(&grid) {
-                    matches += 1
+                    matches += 1;
                 }
                 grid.set((x as isize, y as isize), Tile::None);
             }

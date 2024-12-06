@@ -13,7 +13,7 @@ fn part1(input: &'static str) -> u32 {
             break;
         }
         let chars: Vec<&str> = line.split('|').collect();
-        pairs.push((chars[0].parse().unwrap(), chars[1].parse().unwrap()))
+        pairs.push((chars[0].parse().unwrap(), chars[1].parse().unwrap()));
     }
     for line in lines {
         sets.push(line.split(',').map(|s| s.parse().unwrap()).collect());
@@ -55,7 +55,7 @@ fn part2(input: &'static str) -> u32 {
             break;
         }
         let chars: Vec<&str> = line.split('|').collect();
-        pairs.push((chars[0].parse().unwrap(), chars[1].parse().unwrap()))
+        pairs.push((chars[0].parse().unwrap(), chars[1].parse().unwrap()));
     }
     for line in lines {
         sets.push(line.split(',').map(|s| s.parse().unwrap()).collect());
