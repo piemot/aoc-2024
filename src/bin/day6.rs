@@ -83,6 +83,7 @@ impl<T> Grid<T> {
         pos.1 as usize * self.width + pos.0 as usize
     }
 
+    #[allow(dead_code)]
     pub fn index_to_coord(&self, ind: usize) -> (isize, isize) {
         ((ind % self.width) as isize, (ind / self.width) as isize)
     }
