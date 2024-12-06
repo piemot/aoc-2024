@@ -8,14 +8,14 @@ fn part1(input: &'static str) -> u32 {
     let mut sets: Vec<Vec<u32>> = vec![];
     let mut results = vec![];
 
-    while let Some(line) = lines.next() {
-        if line == "" {
+    for line in lines.by_ref() {
+        if line.is_empty() {
             break;
         }
         let chars: Vec<&str> = line.split('|').collect();
         pairs.push((chars[0].parse().unwrap(), chars[1].parse().unwrap()))
     }
-    while let Some(line) = lines.next() {
+    for line in lines {
         sets.push(line.split(',').map(|s| s.parse().unwrap()).collect());
     }
 
@@ -28,13 +28,12 @@ fn part1(input: &'static str) -> u32 {
     results.into_iter().sum()
 }
 
-fn correctly_ordered(set: &Vec<u32>, pairs: &Vec<(u32, u32)>) -> bool {
-    for (ind, first_number) in set.iter().enumerate() {
-        for ind2 in ind..set.len() {
-            let second_number = set[ind2];
+fn correctly_ordered(set: &[u32], pairs: &[(u32, u32)]) -> bool {
+    for first_number in set {
+        for second_number in set {
             if pairs
                 .iter()
-                .filter(|p| p.0 == second_number && p.1 == *first_number)
+                .filter(|p| p.0 == *second_number && p.1 == *first_number)
                 .count()
                 > 0
             {
@@ -51,14 +50,14 @@ fn part2(input: &'static str) -> u32 {
     let mut sets: Vec<Vec<u32>> = vec![];
     let mut results: Vec<u32> = vec![];
 
-    while let Some(line) = lines.next() {
-        if line == "" {
+    for line in lines.by_ref() {
+        if line.is_empty() {
             break;
         }
         let chars: Vec<&str> = line.split('|').collect();
         pairs.push((chars[0].parse().unwrap(), chars[1].parse().unwrap()))
     }
-    while let Some(line) = lines.next() {
+    for line in lines {
         sets.push(line.split(',').map(|s| s.parse().unwrap()).collect());
     }
 

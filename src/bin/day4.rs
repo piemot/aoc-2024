@@ -67,7 +67,7 @@ impl<T> Grid<T> {
             return None;
         }
 
-        Some(&self.items[pt.1 as usize * self.width + pt.0 as usize])
+        Some(&self.items[pt.1 * self.width + pt.0])
     }
 
     /// Get the value of a single point in the grid, using `isize`s as indices.
@@ -202,7 +202,7 @@ fn find<'a>(
             );
         }
     }
-    return false;
+    false
 }
 
 fn part2(input: &'static str) -> usize {
