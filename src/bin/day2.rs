@@ -43,9 +43,9 @@ fn part1(input: &'static str) -> usize {
     valid_reports.count()
 }
 
-fn check_report(report: &Vec<i32>) -> ReportStatus {
+fn check_report(report: &[i32]) -> ReportStatus {
     let direction: Direction = (report[0] - report[1]).into();
-    let mut report = report.into_iter();
+    let mut report = report.iter();
 
     let mut last = report.next().unwrap();
     for value in report {
