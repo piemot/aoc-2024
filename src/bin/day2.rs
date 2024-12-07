@@ -45,16 +45,17 @@ fn part1(input: &'static str) -> usize {
 
 fn check_report(report: &Vec<i32>) -> ReportStatus {
     let direction: Direction = (report[0] - report[1]).into();
-    let mut last_value = None;
+    let mut report = report.into_iter();
+
+    let mut last = report.next().unwrap();
     for value in report {
-        if let Some(last) = last_value {
-            let diff: i32 = last - value;
-            if diff.abs() > 3 || diff == 0 || Direction::from(last - *value) != direction {
-                return ReportStatus::Invalid;
-            }
+        let diff: i32 = last - value;
+        if diff.abs() > 3 || diff == 0 || Direction::from(last - *value) != direction {
+            return ReportStatus::Invalid;
         }
-        last_value = Some(*value);
+        last = value;
     }
+
     ReportStatus::Valid
 }
 

@@ -23,7 +23,7 @@ macro_rules! day {
 }
 
 /// Generates a testing function (with the `#[test]` attribute already added).
-/// The format is `test_day!(fn_name -> tested_function(input), expected_output`.
+/// The format is `test_day!(fn_name -> tested_function(input), expected_output)`.
 /// * `input` may be either a literal or an identifier.
 /// * `expected_output` may be either a literal or an identifier.
 #[macro_export]
