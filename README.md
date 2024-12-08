@@ -10,8 +10,8 @@ My solutions for Advent of Code, 2024
 | Day 4    | ⭐   |  ⭐⭐  | Rust     |
 | Day 5    | ⭐   |  ⭐⭐  | Rust     |
 | Day 6    | ⭐   |  ⭐⭐  | Rust     |
-| Day 7    |      |       |          |
-| Day 8    |      |       |          |
+| Day 7    | ⭐   |  ⭐⭐  | Rust     |
+| Day 8    | ⭐   |  ⭐⭐  | Rust     |
 | Day 9    |      |       |          |
 | Day 10   |      |       |          |
 | Day 11   |      |       |          |
